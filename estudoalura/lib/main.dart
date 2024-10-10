@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,13 +23,9 @@ class MyApp extends StatelessWidget {
           title: const Text('Tarefas'),
         ),
         body: ListView(children: const [
-          Task('Aprender Flutter'),
-          Task('Meter os Skate'),
-          Task('Grindar o tarkas'),
-          Task('Grindar o tarkas'),
-          Task('Grindar o tarkas'),
-          Task('Grindar o tarkas'),
-          Task('Grindar o tarkas'),
+          Task('Aprender Flutter','https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',3),
+          Task('Meter os Skate','https://images.pexels.com/photos/161172/cycling-bike-trail-sport-161172.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',4),
+          Task('Grindar o tarkas','https://i.ibb.co/tB29PZB/kako-epifania-2022-2-c-pia.jpg',5),
         ]),
       ),
     );
@@ -36,8 +34,10 @@ class MyApp extends StatelessWidget {
 
 class Task extends StatefulWidget {
   final String nome;
+  final String foto;
+  final int dificuldade;
   //parametro necessário
-  const Task(this.nome, {super.key});
+  const Task(this.nome, this.foto, this.dificuldade, {super.key});
 
   @override
   State<Task> createState() => _TaskState();
@@ -68,16 +68,33 @@ class _TaskState extends State<Task> {
                           color: Colors.black26,
                           width: 72,
                           height: 100,
+                          child: Image.network(widget.foto,
+                          fit: BoxFit.cover,),
                         ),
                         // ignore: sized_box_for_whitespace
-                        Container(
-                            width: 200,
-                            child: Text(
-                              widget.nome,
-                              style: const TextStyle(fontSize: 24),
-                              overflow: TextOverflow
-                                  .ellipsis, //impedir que o texto sobreponha o widget
-                            )),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                width: 200,
+                                child: Text(
+                                  widget.nome,
+                                  style: const TextStyle(fontSize: 24),
+                                  overflow: TextOverflow
+                                      .ellipsis, //impedir que o texto sobreponha o widget
+                                )),
+                                Row(
+                                  children: [
+                                    Icon(Icons.star,size: 15, color: Colors.blue,),
+                                    Icon(Icons.star,size: 15, color: Colors.blue,),
+                                    Icon(Icons.star,size: 15, color: Colors.blue,),
+                                    Icon(Icons.star,size: 15, color: Colors.blue[100],),
+                                    Icon(Icons.star,size: 15, color: Colors.blue[100],),
+                                  ],
+                                )
+                          ],
+                        ),
                         Container(
                           height: 52,
                           width: 52,
